@@ -2,32 +2,33 @@
 
 
 #include "Transform.h"
+#include <iostream>
 
 //Please implement the following functions:
 
 // Helper rotation function.  
 mat3 Transform::rotate(const float degrees, const vec3& axis) {
-  // YOUR CODE FOR HW1 HERE
-
-  // You will change this return call
-  return mat3();
+	float rad = degrees * pi / 180.0;
+	return cos(rad) * mat3() 
+			+ (1 - cos(rad)) * mat3(axis.x * axis.x, axis.x * axis.y, axis.x * axis.z, axis.x * axis.y, axis.y * axis.y, axis.y * axis.z, axis.z * axis.x, axis.y * axis.z, axis.z * axis.z)
+			+ sin(rad) * mat3(0, axis.z, -axis.y, -axis.z, 0, axis.x, axis.y, -axis.x, 0);
 }
 
 // Transforms the camera left around the "crystal ball" interface
 void Transform::left(float degrees, vec3& eye, vec3& up) {
-  // YOUR CODE FOR HW1 HERE
+	eye = eye * rotate(degrees, glm::normalize(up));
 }
 
 // Transforms the camera up around the "crystal ball" interface
 void Transform::up(float degrees, vec3& eye, vec3& up) {
-  // YOUR CODE FOR HW1 HERE 
+	vec3 w = glm::normalize(glm::cross(eye, up));
+	eye = eye * rotate(degrees, w);
+	up = up * rotate(degrees, w);
 }
 
 // Your implementation of the glm::lookAt matrix
 mat4 Transform::lookAt(vec3 eye, vec3 up) {
-  // YOUR CODE FOR HW1 HERE
 
-  // You will change this return call
   return mat4();
 }
 
