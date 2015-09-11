@@ -40,7 +40,7 @@ void main (void)
         // A key part is implementation of the fragment shader
 
         // Color all pixels black for now, remove this in your implementation!
-        finalcolor = vec4(0,0,0,1); 
+        finalcolor = vec4(1,0,0,1); //TODO change back
 
         gl_FragColor = finalcolor; 
     } else {

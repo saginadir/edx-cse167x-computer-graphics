@@ -213,6 +213,8 @@ void readfile(const char* filename)
                         // You might want to use helper functions on top of file. 
                         // Also keep in mind what order your matrix is!
 
+						mat4 tr = Transform::translate(values[0], values[1], values[2]);
+						rightmultiply(tr, transfstack);
                     }
                 }
                 else if (cmd == "scale") {
@@ -223,7 +225,8 @@ void readfile(const char* filename)
                         // Think about how the transformation stack is affected
                         // You might want to use helper functions on top of file.  
                         // Also keep in mind what order your matrix is!
-
+						mat4 sc = Transform::scale(values[0], values[1], values[2]);
+						rightmultiply(sc, transfstack);
                     }
                 }
                 else if (cmd == "rotate") {
@@ -236,7 +239,8 @@ void readfile(const char* filename)
                         // See how the stack is affected, as above.  
                         // Note that rotate returns a mat3. 
                         // Also keep in mind what order your matrix is!
-
+						mat3 rot = Transform::rotate(values[3], vec3(values[0], values[1], values[2]));
+						rightmultiply(mat4(rot), transfstack);
                     }
                 }
 

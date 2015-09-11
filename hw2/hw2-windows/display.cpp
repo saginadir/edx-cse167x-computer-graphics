@@ -40,6 +40,8 @@ void transformvec (const GLfloat input[4], GLfloat output[4])
 
 void display() 
 {
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
   glClearColor(0, 0, 1, 0);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -83,6 +85,10 @@ void display()
   // You need to use scale, translate and modelview to 
   // set up the net transformation matrix for the objects.  
   // Account for GLM issues, matrix order (!!), etc.  
+  
+  transf = transf * sc;
+  transf = transf * tr;
+  transf = transf * mv;
 
   glLoadMatrixf(&transf[0][0]); 
 
