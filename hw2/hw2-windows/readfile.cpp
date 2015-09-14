@@ -98,12 +98,19 @@ void readfile(const char* filename)
                         cerr << "Reached Maximum Number of Lights " << numused << " Will ignore further lights\n";
                     } else {
                         validinput = readvals(s, 8, values); // Position/color for lts.
-                        if (validinput) {
+						if (validinput) {
 
-                            // YOUR CODE FOR HW 2 HERE. 
-                            // Note that values[0...7] shows the read in values 
-                            // Make use of lightposn[] and lightcolor[] arrays in variables.h
-                            // Those arrays can then be used in display too.  
+							// YOUR CODE FOR HW 2 HERE. 
+							// Note that values[0...7] shows the read in values 
+							// Make use of lightposn[] and lightcolor[] arrays in variables.h
+							// Those arrays can then be used in display too.  
+							for (int i = 0; i < 4; i++){
+								lightposn[(numused * 4) + i] = values[i];
+							}
+
+							for (int i = 0; i < 4; i++){
+								lightcolor[(numused * 4) + i] = values[i + 4];
+							}
 
                             ++numused; 
                         }
@@ -157,13 +164,16 @@ void readfile(const char* filename)
                 } else if (cmd == "camera") {
                     validinput = readvals(s,10,values); // 10 values eye cen up fov
                     if (validinput) {
+						// YOUR CODE FOR HW 2 HERE
+						// Use all of values[0...9]
+						// You may need to use the upvector fn in Transform.cpp
+						// to set up correctly. 
+						// Set eyeinit upinit center fovy in variables.h 
 
-                        // YOUR CODE FOR HW 2 HERE
-                        // Use all of values[0...9]
-                        // You may need to use the upvector fn in Transform.cpp
-                        // to set up correctly. 
-                        // Set eyeinit upinit center fovy in variables.h 
-
+						eyeinit = vec3(values[0], values[1], values[2]);
+						center = vec3(values[3], values[4], values[5]);
+						upinit = Transform::upvector(vec3(values[6], values[7], values[8]), eyeinit);
+						fovy = values[9];
                     }
                 }
 

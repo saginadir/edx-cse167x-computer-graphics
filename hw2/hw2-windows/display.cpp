@@ -40,7 +40,7 @@ void transformvec (const GLfloat input[4], GLfloat output[4])
 
 void display() 
 {
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
   glClearColor(0, 0, 1, 0);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -70,7 +70,20 @@ void display()
     // You need to pass the light positions and colors to the shader. 
     // glUniform4fv() and similar functions will be useful. See FAQ for help with these functions.
     // The lightransf[] array in variables.h and transformvec() might also be useful here.
-    // Remember that light positions must be transformed by modelview.  
+    // Remember that light positions must be transformed by modelview.
+	for (int i = 0; i < numused; i++){
+		GLfloat orig[4] = { lightposn[(i * 4)], lightposn[(i * 4) + 1], lightposn[(i * 4) + 2], lightposn[(i * 4) + 3] };
+		GLfloat trans[4];
+		transformvec(orig, trans);
+		lightransf[(i * 4)] = trans[0];
+		lightransf[(i * 4) + 1] = trans[1];
+		lightransf[(i * 4) + 2] = trans[2];
+		lightransf[(i * 4) + 3] = trans[3];
+	}
+
+	glUniform1i(numusedcol, numused);
+	glUniform4fv(lightpos, numused, lightransf);
+	glUniform4fv(lightcol, numused, lightcolor);
 
   } else {
     glUniform1i(enablelighting,false); 
@@ -86,9 +99,7 @@ void display()
   // set up the net transformation matrix for the objects.  
   // Account for GLM issues, matrix order (!!), etc.  
   
-  transf = transf * sc;
-  transf = transf * tr;
-  transf = transf * mv;
+  transf = mv * tr * sc;
 
   glLoadMatrixf(&transf[0][0]); 
 
@@ -99,6 +110,14 @@ void display()
     // Set up the object transformations 
     // And pass in the appropriate material properties
     // Again glUniform() related functions will be useful
+	glUniform4fv(ambientcol, 1, obj->ambient);
+	glUniform4fv(diffusecol, 1, obj->diffuse);
+	glUniform4fv(specularcol, 1, obj->specular);
+	glUniform4fv(emissioncol, 1, obj->emission);
+	glUniform1f(shininesscol, obj->shininess);
+
+	mat4 objTransform = transf * obj->transform;
+	glLoadMatrixf(&objTransform[0][0]);
 
     // Actually draw the object
     // We provide the actual glut drawing functions for you.  
