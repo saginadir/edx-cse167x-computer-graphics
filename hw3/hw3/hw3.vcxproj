@@ -71,6 +71,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="vector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="scenes\scene4-ambient.test" />
@@ -80,6 +81,9 @@
     <None Include="scenes\scene5.test" />
     <None Include="scenes\scene6.test" />
     <None Include="scenes\scene7.test" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

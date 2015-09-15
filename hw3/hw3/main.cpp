@@ -3,19 +3,15 @@
 #include <fstream>
 #include <sstream>
 #include <cstdlib>
+#include "vector.h"
 
 const std::string SCENE_PATH = "../hw3/scenes/";
 
-struct vec3
-{
-	double x, y, z;
-};
-
 struct camera
 {
-	vec3 center;	//look from
-	vec3 eye;		//look at
-	vec3 up;		//up direction of camera
+	Vector center;	//look from
+	Vector eye;		//look at
+	Vector up;		//up direction of camera
 	int fovy;
 };
 
@@ -52,47 +48,44 @@ int main(int argc, char* argv[])
 
 	std::string line, token;
 	std::stringstream linestream;
-	const int maxvals = 25; //read up to 25 values in a single line of input from scene file
-	std::string vals[maxvals];
+
+	std::string type;
+	const int maxvals = 10; //read up to 10 values in a single line of input from scene file
+	float vals[maxvals];
 	
 	// loop through each line and token
 	while (std::getline(inscene, line)){
 		std::stringstream tokenizer(line);
-		for (int i = 0; i < maxvals && tokenizer.good(); i++)
-			tokenizer >> vals[i];
+		tokenizer >> type; //read in first token which is the type
 
+		//read in the rest of the values from the line
+		for (int i = 0; i < maxvals && tokenizer.good(); i++){
+			tokenizer >> vals[i];
+		}
+		
 		//skip comments
-		if (vals[0][0] == '#'){
+		if (type.find_first_of('#') != std::string::npos){
 			continue;
 		}
 
-		if (vals[0] == "size"){
-			imout.width = atoi(vals[1].c_str());
-			imout.height = atoi(vals[2].c_str());
+		if (type == "size"){
+			imout.width = (int)vals[0];
+			imout.height = (int)vals[1];
 		}
-		else if (vals[0] == "output"){
+		else if (type == "output"){
 			imout.filename = vals[1];
 		}
-		else if (vals[0] == "camera"){
-			vec3 center;
-			center.x = atof(vals[1].c_str());
-			center.y = atof(vals[2].c_str());
-			center.z = atof(vals[3].c_str());
+		else if (type == "camera"){
+			Vector center { vals[0], vals[1], vals[2] };
 			cam.center = center;
 
-			vec3 eye;
-			eye.x = atof(vals[4].c_str());
-			eye.y = atof(vals[5].c_str());
-			eye.z = atof(vals[6].c_str());
+			Vector eye { vals[3], vals[4], vals[5] };
 			cam.eye = eye;
 
-			vec3 up;
-			up.x = atof(vals[7].c_str());
-			up.y = atof(vals[8].c_str());
-			up.z = atof(vals[9].c_str());
+			Vector up { vals[6], vals[7], vals[8] };
 			cam.up = up;
 
-			cam.fovy = atoi(vals[10].c_str());
+			cam.fovy = (int)vals[9];
 		}
 	}
 
