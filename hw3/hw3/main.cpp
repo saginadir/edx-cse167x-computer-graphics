@@ -75,8 +75,6 @@ int main(int argc, char* argv[])
 
 	if (scene != nullptr){
 		scene->setCamera(camera);
+		scene->processToFile(outputFilename);
 	}
-
-	//hold console open
-	std::getchar();
 }
