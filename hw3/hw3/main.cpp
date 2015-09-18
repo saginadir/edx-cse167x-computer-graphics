@@ -3,6 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include <cstdlib>
+#include <memory>
 
 #include "scene.h"
 #include "camera.h"
@@ -33,8 +34,8 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 
-	Scene *scene = nullptr;
-	Camera *camera = nullptr;
+	std::unique_ptr<Scene> scene = nullptr;
+	std::shared_ptr<Camera> camera = nullptr;
 	std::string outputFilename;
 
 	std::string line, token;
@@ -59,26 +60,22 @@ int main(int argc, char* argv[])
 			continue;
 		}
 		else if (type == "size"){
-			scene = new Scene((int)vals[0], (int)vals[1]);
+			scene = std::unique_ptr<Scene>(new Scene((int)vals[0], (int)vals[1]));
 		}
 		else if (type == "output"){
 			outputFilename = vals[1];
 		}
 		else if (type == "camera"){
-			camera = new Camera(vals[0], vals[1], vals[2], //look from
-								vals[3], vals[4], vals[5], //look at
-								vals[6], vals[7], vals[8], //up direction
-								vals[9]);				   //fovy
+			camera = std::shared_ptr<Camera>(new Camera(vals[0], vals[1], vals[2], //look from
+														vals[3], vals[4], vals[5], //look at
+														vals[6], vals[7], vals[8], //up direction
+														vals[9]));				   //fovy
 		}
 	}
 
 	if (scene != nullptr){
 		scene->setCamera(camera);
 	}
-
-	//cleanup
-	delete scene;
-	delete camera;
 
 	//hold console open
 	std::getchar();
