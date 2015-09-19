@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <memory>
 
+#include "FreeImage.h"
 #include "scene.h"
 #include "camera.h"
 
@@ -18,6 +19,8 @@ int main(int argc, char* argv[])
 		std::getchar();
 		return 1;
 	}
+
+	FreeImage_Initialise(); //init FreeImage for saving out images
 
 	//open and read from scene file
 	std::ifstream inscene;
@@ -50,26 +53,29 @@ int main(int argc, char* argv[])
 		std::string type;
 		tokenstream >> type; //read in first token which is the type
 
+		//skip comments
+		if (type.find_first_of('#') != std::string::npos){
+			continue;
+		}
+		//read in filename and save
+		else if (type == "output"){
+			tokenstream >> outputFilename;
+			continue;
+		}
+
 		//read in the rest of the values from the line
 		for (int i = 0; i < maxvals && tokenstream.good(); i++){
 			tokenstream >> vals[i];
 		}
 		
-		//skip comments
-		if (type.find_first_of('#') != std::string::npos){
-			continue;
-		}
-		else if (type == "size"){
+		if (type == "size"){
 			scene = std::unique_ptr<Scene>(new Scene((int)vals[0], (int)vals[1]));
-		}
-		else if (type == "output"){
-			outputFilename = vals[1];
 		}
 		else if (type == "camera"){
 			camera = std::shared_ptr<Camera>(new Camera(vals[0], vals[1], vals[2], //look from
 														vals[3], vals[4], vals[5], //look at
 														vals[6], vals[7], vals[8], //up direction
-														vals[9]));				   //fovy
+														(int)vals[9]));			   //fovy
 		}
 	}
 
@@ -77,4 +83,6 @@ int main(int argc, char* argv[])
 		scene->setCamera(camera);
 		scene->processToFile(outputFilename);
 	}
+
+	FreeImage_DeInitialise();
 }
