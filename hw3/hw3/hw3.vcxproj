@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h" />
+    <ClInclude Include="ray.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="vector.h" />
   </ItemGroup>

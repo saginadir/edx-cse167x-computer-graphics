@@ -20,7 +20,7 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 
-	FreeImage_Initialise(); //init FreeImage for saving out images
+	FreeImage_Initialise(); //init fre
 
 	//open and read from scene file
 	std::ifstream inscene;
@@ -37,15 +37,15 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 
-	std::unique_ptr<Scene> scene = nullptr;
-	std::shared_ptr<Camera> camera = nullptr;
-	std::string outputFilename;
+
+	Scene scene;
+	std::string outputFilename = "";
 
 	std::string line, token;
 	std::stringstream linestream;
 
-	const int maxvals = 10; //read up to 10 values in a single line of input from scene file
-	float vals[maxvals];
+	const int maxvals = 10;
+	float vals[maxvals]; //read up to 10 values in a single line of input from scene file
 	
 	// loop through each line and token
 	while (std::getline(inscene, line)){
@@ -69,20 +69,18 @@ int main(int argc, char* argv[])
 		}
 		
 		if (type == "size"){
-			scene = std::unique_ptr<Scene>(new Scene((int)vals[0], (int)vals[1]));
+			scene.setWidth((int)vals[0]);
+			scene.setHeight((int)vals[1]);
 		}
 		else if (type == "camera"){
-			camera = std::shared_ptr<Camera>(new Camera(vals[0], vals[1], vals[2], //look from
-														vals[3], vals[4], vals[5], //look at
-														vals[6], vals[7], vals[8], //up direction
-														(int)vals[9]));			   //fovy
+			scene.setCamera(new Camera(vals[0], vals[1], vals[2], //look from
+									   vals[3], vals[4], vals[5], //look at
+									   vals[6], vals[7], vals[8], //up direction
+									   (int)vals[9]));			  //fovy
 		}
 	}
 
-	if (scene != nullptr){
-		scene->setCamera(camera);
-		scene->processToFile(outputFilename);
-	}
+	scene.processToFile(outputFilename);
 
 	FreeImage_DeInitialise();
 }

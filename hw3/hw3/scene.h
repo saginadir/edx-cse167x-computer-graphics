@@ -9,13 +9,15 @@
 class Scene
 {
 public:
-	Scene(int w, int h) :w(w), h(h){};
-	void setCamera(std::shared_ptr<Camera> camera){ this->camera = camera; };
+	Scene() :width(0), height(0), camera(nullptr){};
+	void setWidth(int w){ this->width = w; };
+	void setHeight(int h){ this->height = h; };
+	void setCamera(Camera *camera){ this->camera = std::unique_ptr<Camera>(camera); };
 	void processToFile(std::string filename);
 
 private:
-	int w, h;
-	std::shared_ptr<Camera> camera;
+	int width, height;
+	std::unique_ptr<Camera> camera;
 };
 
 #endif

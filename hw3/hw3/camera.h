@@ -2,6 +2,7 @@
 #define CAMERA_H
 
 #include "vector.h"
+#include "ray.h"
 
 class Camera
 {
@@ -15,6 +16,8 @@ public:
 			up       (Vector(upX, upY, upZ)),
 			fovy     (fovy)
 			{};
+	
+	Ray Camera::getRayThruPixel(const int &x, const int &y, const int &width, const int &height);
 
 private:
 	Vector center;	//look from
