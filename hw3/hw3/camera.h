@@ -7,12 +7,12 @@
 class Camera
 {
 public:
-	Camera(float centerX, float centerY, float centerZ,
-		   float lookAtX, float lookAtY, float lookAtZ,
+	Camera(float eyeX,    float eyeY,    float eyeZ,
+		   float centerX, float centerY, float centerZ,
 		   float upX,     float upY,     float upZ,
 		   int   fovy)
-		   :center   (Vector(centerX, centerY, centerZ)),
-			eye      (Vector(lookAtX, lookAtY, lookAtZ)),
+		   :eye		 (Vector(eyeX, eyeY, eyeZ)),
+			center   (Vector(centerX, centerY, centerZ)),
 			up       (Vector(upX, upY, upZ)),
 			fovy     (fovy)
 			{};
@@ -20,8 +20,8 @@ public:
 	Ray Camera::getRayThruPixel(const int &x, const int &y, const int &width, const int &height);
 
 private:
-	Vector center;	//look from
-	Vector eye;		//look at
+	Vector eye;		//look from
+	Vector center;	//look at
 	Vector up;		//up direction of camera
 	int fovy;
 };

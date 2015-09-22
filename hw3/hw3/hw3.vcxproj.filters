@@ -26,6 +26,9 @@
     <ClCompile Include="camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="sphere.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="scenes\scene4-ambient.test">
@@ -49,6 +52,9 @@
     <None Include="scenes\scene7.test">
       <Filter>Scenes</Filter>
     </None>
+    <None Include="scenes\simple.test">
+      <Filter>Scenes</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vector.h">
@@ -58,6 +64,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ray.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="primitive.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sphere.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

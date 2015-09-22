@@ -15,6 +15,7 @@ public:
 
 	float magnitude() const;
 	Vector normalized() const;
+	float dot(const Vector &v) const;
 	Vector cross(const Vector &v) const;
 
 	float x, y, z;

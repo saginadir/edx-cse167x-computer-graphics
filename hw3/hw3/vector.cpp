@@ -1,14 +1,16 @@
 #include "vector.h"
 #include <cmath>
 
-Vector Vector::operator=(const Vector &v){
+Vector Vector::operator=(const Vector &v)
+{
 	x = v.x;
 	y = v.y;
 	z = v.z;
 	return *this;
 }
 
-Vector Vector::operator+(const Vector &b) const{
+Vector Vector::operator+(const Vector &b) const
+{
 	Vector c;
 	c.x = x + b.x;
 	c.y = y + b.y;
@@ -16,7 +18,8 @@ Vector Vector::operator+(const Vector &b) const{
 	return c;
 }
 
-Vector Vector::operator-(const Vector &b) const{
+Vector Vector::operator-(const Vector &b) const
+{
 	Vector c;
 	c.x = x - b.x;
 	c.y = y - b.y;
@@ -24,7 +27,8 @@ Vector Vector::operator-(const Vector &b) const{
 	return c;
 }
 
-Vector Vector::operator*(const float &f) const{
+Vector Vector::operator*(const float &f) const
+{
 	Vector s;
 	s.x = x * f;
 	s.y = y * f;
@@ -32,7 +36,8 @@ Vector Vector::operator*(const float &f) const{
 	return s;
 }
 
-Vector Vector::operator*(const double &d) const{
+Vector Vector::operator*(const double &d) const
+{
 	Vector s;
 	s.x = (float)(x * d);
 	s.y = (float)(y * d);
@@ -40,11 +45,13 @@ Vector Vector::operator*(const double &d) const{
 	return s;
 }
 
-float Vector::magnitude() const{
+float Vector::magnitude() const
+{
 	return sqrt(x*x + y*y + z*z);
 }
 
-Vector Vector::normalized() const{
+Vector Vector::normalized() const
+{
 	float mag = magnitude();
 	Vector n;
 	n.x = x / mag;
@@ -53,7 +60,16 @@ Vector Vector::normalized() const{
 	return n;
 }
 
-Vector Vector::cross(const Vector &b) const{
+float Vector::dot(const Vector &v) const{
+	float dot = 0;
+	dot += x * v.x;
+	dot += y * v.y;
+	dot += z * v.z;
+	return dot;
+}
+
+Vector Vector::cross(const Vector &b) const
+{
 	Vector c;
 	c.x = y * b.z - z * b.y;
 	c.y = z * b.x - x * b.z;

@@ -77,6 +77,7 @@
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="scene.cpp" />
+    <ClCompile Include="sphere.cpp" />
     <ClCompile Include="vector.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -87,11 +88,14 @@
     <None Include="scenes\scene5.test" />
     <None Include="scenes\scene6.test" />
     <None Include="scenes\scene7.test" />
+    <None Include="scenes\simple.test" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h" />
+    <ClInclude Include="primitive.h" />
     <ClInclude Include="ray.h" />
     <ClInclude Include="scene.h" />
+    <ClInclude Include="sphere.h" />
     <ClInclude Include="vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

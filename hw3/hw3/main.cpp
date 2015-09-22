@@ -8,6 +8,7 @@
 #include "FreeImage.h"
 #include "scene.h"
 #include "camera.h"
+#include "sphere.h"
 
 const std::string SCENE_PATH = "../hw3/scenes/";
 
@@ -77,6 +78,10 @@ int main(int argc, char* argv[])
 									   vals[3], vals[4], vals[5], //look at
 									   vals[6], vals[7], vals[8], //up direction
 									   (int)vals[9]));			  //fovy
+		}
+		else if (type == "sphere"){
+			std::shared_ptr<Primitive> sphere = std::shared_ptr<Primitive>(new Sphere(vals[0], vals[1], vals[2], vals[3]));
+			scene.addPrimitive(sphere);
 		}
 	}
 

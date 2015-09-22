@@ -10,7 +10,7 @@ Ray Camera::getRayThruPixel(const int &x, const int &y, const int &width, const 
 	Vector u, v, w; //orthonormal basis for the camera
 	
 	fovyRads = fovy * M_PI / 180;
-	fovxRads = 2 * atan(tan(fovyRads / 2) * (width / height));
+	fovxRads = 2 * atan(tan(fovy / 2) * (width / height));
 
 	xCenter = x + 0.5;
 	yCenter = y + 0.5;
@@ -24,5 +24,5 @@ Ray Camera::getRayThruPixel(const int &x, const int &y, const int &width, const 
 
 	Vector dirn = eye + (u * alpha + v * beta - w).normalized();
 
-	return Ray(center, dirn);
+	return Ray(eye, dirn);
 }
