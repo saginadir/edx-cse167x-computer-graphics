@@ -1,7 +1,7 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#include "vector.h"
+#include <vec3.hpp>
 #include "ray.h"
 
 class Camera
@@ -11,18 +11,18 @@ public:
 		   float centerX, float centerY, float centerZ,
 		   float upX,     float upY,     float upZ,
 		   int   fovy)
-		   :eye		 (Vector(eyeX, eyeY, eyeZ)),
-			center   (Vector(centerX, centerY, centerZ)),
-			up       (Vector(upX, upY, upZ)),
+		   :eye		 (glm::vec3(eyeX, eyeY, eyeZ)),
+			center	 (glm::vec3(centerX, centerY, centerZ)),
+			up		 (glm::vec3(upX, upY, upZ)),
 			fovy     (fovy)
 			{};
 	
 	Ray Camera::getRayThruPixel(const int &x, const int &y, const int &width, const int &height);
 
 private:
-	Vector eye;		//look from
-	Vector center;	//look at
-	Vector up;		//up direction of camera
+	glm::vec3 eye;		//look from
+	glm::vec3 center;	//look at
+	glm::vec3 up;		//up direction of camera
 	int fovy;
 };
 

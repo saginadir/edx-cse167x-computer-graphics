@@ -1,15 +1,15 @@
 #ifndef RAY_H
 #define RAY_H
 
-#include "vector.h"
+#include <vec3.hpp>
 
 class Ray{
 public:
-	Ray():orig(Vector()), dirn(Vector()){};
-	Ray(Vector orig, Vector dirn) :orig(orig), dirn(dirn){};
+	Ray() :orig(glm::vec3()), dirn(glm::vec3()){};
+	Ray(glm::vec3 orig, glm::vec3 dirn) :orig(orig), dirn(dirn){};
 	
-	Vector orig;
-	Vector dirn;
+	glm::vec3 orig;
+	glm::vec3 dirn;
 };
 
 #endif

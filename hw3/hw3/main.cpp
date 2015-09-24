@@ -41,8 +41,7 @@ int main(int argc, char* argv[])
 
 	Scene scene;
 	std::string outputFilename = "";
-	std::vector<Vector> vertexes = std::vector<Vector>();
-	Vector *vertexes;
+	std::vector<glm::vec3> vertexes = std::vector<glm::vec3>();
 
 	std::string line, token;
 	std::stringstream linestream;
@@ -86,7 +85,7 @@ int main(int argc, char* argv[])
 			scene.addPrimitive(sphere);
 		}
 		else if (type == "vertex"){
-			vertexes.push_back(Vector(vals[0], vals[1], vals[2]));
+			vertexes.push_back(glm::vec3(vals[0], vals[1], vals[2]));
 		}
 	}
 
