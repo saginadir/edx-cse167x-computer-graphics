@@ -17,16 +17,16 @@ void Scene::processToFile(std::string filename)
 
 	BYTE *pixels = new BYTE[width * height * 3]; //width * height * number of bytes(r,g,b) per pixel
 
-	for (int i = 0; i < width; i++){
-		for (int j = 0; j < height; j++){
+	for (int x = 0; x < width; x++){
+		for (int y = 0; y < height; y++){
 			//shoot ray through pixel
-			Ray ray = camera->getRayThruPixel(i, j, width, height);
+			Ray ray = camera->getRayThruPixel(x, y, width, height);
 
 			//find intersection and its color in scene
 			Color color = traceRay(ray);
 
 			//find color and set it on output image
-			int pos = (j * width * 3) + (i * 3); //calculate position in array to insert pixel color
+			int pos = (y * width * 3) + (x * 3); //calculate position in array to insert pixel color
 			pixels[pos]     = color.b;	//blue
 			pixels[pos + 1] = color.g;	//green
 			pixels[pos + 2] = color.r;	//red

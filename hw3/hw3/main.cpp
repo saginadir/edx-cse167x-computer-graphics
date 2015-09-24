@@ -41,6 +41,8 @@ int main(int argc, char* argv[])
 
 	Scene scene;
 	std::string outputFilename = "";
+	std::vector<Vector> vertexes = std::vector<Vector>();
+	Vector *vertexes;
 
 	std::string line, token;
 	std::stringstream linestream;
@@ -82,6 +84,9 @@ int main(int argc, char* argv[])
 		else if (type == "sphere"){
 			std::shared_ptr<Primitive> sphere = std::shared_ptr<Primitive>(new Sphere(vals[0], vals[1], vals[2], vals[3]));
 			scene.addPrimitive(sphere);
+		}
+		else if (type == "vertex"){
+			vertexes.push_back(Vector(vals[0], vals[1], vals[2]));
 		}
 	}
 
