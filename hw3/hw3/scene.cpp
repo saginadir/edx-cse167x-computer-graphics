@@ -47,12 +47,23 @@ Scene::Color Scene::traceRay(Ray ray){
 		IntersectInfo info = p->intersect(ray);
 		if (info.isIntersect && info.distance > 0 && info.distance < minDist){
 			closestObject = p;
+			minDist = info.distance;
 		}
 	}
 
 	struct Color color;
-	color.r = closestObject == nullptr ? 0 : 255;
-	color.g = 0;
-	color.b = 0;
+
+	if (closestObject != nullptr){
+		glm::vec3 colorVec = closestObject->ambient + closestObject->emission;
+		color.r = (int)(255 * colorVec.x);
+		color.g = (int)(255 * colorVec.y);
+		color.b = (int)(255 * colorVec.z);
+	}
+	else{
+		color.r = 0;
+		color.g = 0;
+		color.b = 0;
+	}
+
 	return color;
 }

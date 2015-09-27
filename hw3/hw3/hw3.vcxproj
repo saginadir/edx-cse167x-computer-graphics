@@ -78,6 +78,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="sphere.cpp" />
+    <ClCompile Include="triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="scenes\scene4-ambient.test" />
@@ -95,6 +96,7 @@
     <ClInclude Include="ray.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="sphere.h" />
+    <ClInclude Include="triangle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

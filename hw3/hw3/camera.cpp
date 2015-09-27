@@ -25,5 +25,5 @@ Ray Camera::getRayThruPixel(const int &x, const int &y, const int &width, const 
 
 	glm::vec3 dirn = glm::normalize((u * (float)alpha + v * (float)beta - w));
 
-	return Ray(eye, dirn);
+	return Ray(glm::vec4(eye.x, eye.y, eye.z, 0), glm::vec4(dirn.x, dirn.y, dirn.z, 0));
 }

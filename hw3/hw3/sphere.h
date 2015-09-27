@@ -5,12 +5,11 @@
 
 class Sphere : public Primitive{
 public:
-	Sphere() :pos(glm::vec3()), radius(1){};
-	Sphere(int x, int y, int z, float radius) :pos(glm::vec3(x, y, z)), radius(radius){};
+	Sphere(int x, int y, int z, float radius) :pos(glm::vec4(x, y, z, 0)), radius(radius){};
 	virtual ~Sphere(){};
 	virtual IntersectInfo intersect(Ray ray);
 
-	glm::vec3 pos;
+	glm::vec4 pos;
 	float radius;
 };
 
